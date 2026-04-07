@@ -1,3 +1,5 @@
+"use client";
+
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
@@ -28,7 +30,13 @@ export default function MarkdownRenderer({ content }: Props) {
                 title={props.title || ''} 
                 className="w-full max-w-2xl mx-auto h-auto rounded-none border-4 border-[var(--color-mau-bg)] shadow-[0_0_0_2px_var(--color-mau-coffee-light)]" 
                 loading="lazy" 
+                onError={(e) => {
+                  if (e.currentTarget.src !== '/assets/diary-covers/fallback-mau.png') {
+                    e.currentTarget.src = '/assets/diary-covers/fallback-mau.png';
+                  }
+                }}
               />
+
               {props.alt && (
                 <span className="block text-center text-xs text-[var(--color-mau-text-muted)] mt-3 font-pixel tracking-widest uppercase">
                   {props.alt}
